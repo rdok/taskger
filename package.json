@@ -1,0 +1,10 @@
+{
+  "name": "tasks",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Rizart Dokollari",
+  "license": "MIT",
+  "dependencies": {
+    "mongodb": "^3.6.6"
+  }
+}
