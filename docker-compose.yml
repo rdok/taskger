@@ -1,5 +1,12 @@
-version: '3.1'
+version: '3.7'
 services:
+  api:
+    image: node:14-buster
+    user: "node"
+    working_dir: /home/node/app
+    volumes:
+      - ".:/home/node/app"
+    command: node main.js
   mongo:
     image: mongo:4.4
     restart: always
