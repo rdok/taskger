@@ -1,21 +1,24 @@
 console.log('================================================================================')
 const MongoClient = require('mongodb').MongoClient
 
-const {DB_HOST, DB_PORT} = process.env;
-console.log(DB_HOST)
-console.log(DB_PORT);
+const {DB_HOST, DB_PORT, DB_USER, DB_PASSWORD} = process.env;
+const username = encodeURIComponent(DB_USER);
+const password = encodeURIComponent(DB_PASSWORD);
 
-const connectionURL = `mongodb://${DB_HOST}:${DB_PORT}`
+const uri = `mongodb://${username}:${password}@${DB_HOST}:${DB_PORT}`
 const databaseName = 'main'
 
-const client = new MongoClient(connectionURL, {
+const client = new MongoClient(uri, {
   useUnifiedTopology: true
 })
 
-client.connect((err, client) => {
+client.connect(async (err, client) => {
   if(err) return console.error(err)
 
-  console.log('Successfull connected')
-
-  client.close();
+  const db = client.db(databaseName)
+  await db.collection('users').insertOne({
+    name: 'Riz',
+  }).finally(() => {
+    client.close();
+  })
 });
