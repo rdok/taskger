@@ -6,10 +6,12 @@ services:
     working_dir: /home/node/app
     volumes:
       - ".:/home/node/app"
-    command: node main.js
+    command: node --trace-warnings main.js
     environment:
       - DB_HOST=mongo
       - DB_PORT=27017
+      - DB_USER=root
+      - DB_PASSWORD=secret
   mongo:
     image: mongo:4.4
     restart: always
