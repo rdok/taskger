@@ -1,6 +1,22 @@
 version: "3.7"
 services:
+  mongo:
+    image: mongo:4.4
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+  mongo-express:
+    depends_on: [mongo]
+    image: mongo-express:0.54
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=secret
   api:
+    depends_on: [mongo]
     image: node:14-buster
     user: "node"
     working_dir: /home/node/app
@@ -12,17 +28,5 @@ services:
       - DB_PORT=27017
       - DB_USER=root
       - DB_PASSWORD=secret
-  mongo:
-    image: mongo:4.4
-    restart: always
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=secret
-  mongo-express:
-    image: mongo-express:0.54
-    restart: always
-    ports:
-      - 8081:8081
-    environment:
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=secret
+#      Defaults to test
+      - DB_MAIN=
