@@ -12,6 +12,7 @@
     "prettier": "^2.3.0"
   },
   "scripts": {
+    "start:dev": "node main.js",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write ."
   }
