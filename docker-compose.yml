@@ -22,7 +22,9 @@ services:
     working_dir: /home/node/app
     volumes:
       - ".:/home/node/app"
-    command: node --trace-warnings main.js
+    command: npm run start:dev
+    ports:
+      - 3000:3000
     environment:
       - DB_HOST=mongo
       - DB_PORT=27017
