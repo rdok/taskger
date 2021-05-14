@@ -10,5 +10,4 @@ Task manager
 
 ## Develop
 
-- See `Makefile`
-- mongo-express db browser client at http://0.0.0.0:8081/
+See `Makefile`
