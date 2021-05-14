@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { UserSchema } = require("./user-schema");
+const { TaskSchema, UserSchema } = require("./schemas");
 
 const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_MAIN } = process.env;
 const username = encodeURIComponent(DB_USER);
@@ -19,5 +19,6 @@ mongoose
   });
 
 const User = mongoose.model("User", UserSchema);
+const Task = mongoose.model("Task", TaskSchema);
 
-module.exports = { User };
+module.exports = { User, Task };
