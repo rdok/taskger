@@ -1,29 +1,11 @@
-const { ObjectId } = require("bson");
-const { User, Task, mongoose } = require("./db/mongoose");
+const app = require("./app");
+// const { webRoutes } = require("./routes/web");
+const { apiRoutes } = require("./routes/api");
 
-const main = async () => {
-  // new User({ name: "Riz", age: 31, email: "bla" }).save().then((response) => {
-  //   console.log(response);
-  // });
+apiRoutes(app);
+// webRoutes(app);
 
-  const user = await new User({
-    name: "Riz",
-    age: 31,
-    email: "riz@mail.com",
-  }).save();
-
-  const task = await new Task({
-    name: "AlphaTask",
-    status: "todo",
-    createdBy: new ObjectId(user._id),
-  }).save();
-
-  // mongoose.save();
-  // console.log(user);
-  console.log(task);
-  // new Task({name: 'taskAlpha'})
-
-  mongoose.connection.close();
-};
-
-main();
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Listening http://localhost:${PORT}`);
+});
