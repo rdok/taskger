@@ -1,13 +1,12 @@
-run: up
-    docker-compose up -d
+api: docker-compose.up
+	docker-compose run --rm api bash -c 'npm run start:dev'
 
 db-refresh:
 	docker-compose up --force-recreate --always-recreate-deps --build --renew-anon-volumes
 
-api:
-	docker-compose run --rm api bash -c 'npm run start:dev'
-up:
+docker-compose.up:
 	docker-compose up -d
+	touch docker-compose.up
 
 prettier:
 	docker-compose run --rm api bash -c 'npm run prettier'
