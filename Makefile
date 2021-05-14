@@ -12,3 +12,7 @@ prettier:
 	docker-compose run --rm api bash -c 'npm run prettier'
 prettier-fix:
 	docker-compose run --rm api bash -c 'npm run prettier:fix'
+
+.PHONY: node_modules
+node_modules:
+	npm ci --frozen-lockfile
