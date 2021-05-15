@@ -1,4 +1,9 @@
-const { apiRoutes } = require("./api");
-const { webRoutes } = require("./web");
+const { registerApiRoutes } = require("./api");
+const { registerWebRoutes } = require("./web");
 
-module.exports = { apiRoutes, webRoutes };
+const registerRoutes = (app) => {
+  registerApiRoutes(app);
+  registerWebRoutes(app);
+};
+
+module.exports = { registerRoutes };
