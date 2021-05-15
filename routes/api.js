@@ -1,13 +1,8 @@
-const { BadRequestError } = require("./BadRequestError");
+const { registerTaskRoutes } = require("./api/registerTaskRoutes");
+const { BadRequestError } = require("../errors/BadRequestError");
 
-const apiRoutes = (app) => {
-  app.get("/api/tasks", async (req, res, next) => {
-    try {
-      return res.json({ data: [] });
-    } catch (e) {
-      return next(e);
-    }
-  });
+const registerApiRoutes = (app) => {
+  registerTaskRoutes(app);
 
   app.get("/api/*", (req, res) =>
     res.status(404).json({ status: 404, error: "Not Found" })
@@ -24,4 +19,4 @@ const apiRoutes = (app) => {
   });
 };
 
-module.exports = { apiRoutes };
+module.exports = { registerApiRoutes };
