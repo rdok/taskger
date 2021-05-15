@@ -1,9 +1,8 @@
 const app = require("./app");
-// const { webRoutes } = require("./routes/web");
-const { apiRoutes } = require("./routes/api");
+const { apiRoutes, webRoutes } = require("./routes");
 
 apiRoutes(app);
-// webRoutes(app);
+webRoutes(app);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
