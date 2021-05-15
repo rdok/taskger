@@ -6,7 +6,6 @@ const username = encodeURIComponent(DB_USER);
 const password = encodeURIComponent(DB_PASSWORD);
 
 const uri = `mongodb://${username}:${password}@${DB_HOST}:${DB_PORT}/${DB_MAIN}`;
-console.log(uri);
 
 mongoose.connect(uri, {
   useUnifiedTopology: true,
