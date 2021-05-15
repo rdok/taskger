@@ -18,8 +18,8 @@
   "scripts": {
     "start": "node main.js",
     "start:dev": "ENV=dev nodemon -e .hbs,js --unhandled-rejections=strict main.js",
-    "prettier": "prettier --check .",
-    "prettier:fix": "prettier --write ."
+    "prettier": "prettier --check ./**/*.js ./**/*.css",
+    "prettier:fix": "prettier --write ./**/*.js ./**/*.css"
   },
   "engines": {
     "node": "14"
