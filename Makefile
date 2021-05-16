@@ -21,3 +21,6 @@ test-watch:
 .PHONY: node_modules
 node_modules:
 	npm ci --frozen-lockfile
+
+logs-test:
+	heroku logs --app=rdok-test-taskger --tail
