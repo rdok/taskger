@@ -7,7 +7,6 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: Prettier
-        run: |
-          npm ci --frozen-lockfile
-          npm run prettier
+      - name: npm ci --frozen-lockfile
+      - run: npm run prettier
+      - run: npm run test
