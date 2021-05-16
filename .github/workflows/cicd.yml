@@ -29,9 +29,15 @@ jobs:
           [ "$ENVIRONMENT" = "" ] && ENVIRONMENT=test
 
           if [ "$ENVIRONMENT" == "test" ]; then
-            echo "TODO: add test envs."
+            echo ::set-output name=db-host::"${{ secrets.DB_HOST_TEST }}"
+            echo ::set-output name=db-name::"${{ secrets.DB_NAME_TEST }}"
+            echo ::set-output name=db-user::"${{ secrets.DB_USER_TEST }}"
+            echo ::set-output name=db-password::"${{ secrets.DB_PASSWORD_TEST }}"
           elif [ "$ENVIRONMENT" == "prod" ]; then
-            echo "TODO: add prod envs."
+            echo ::set-output name=db-host::"${{ secrets.DB_HOST_PROD }}"
+            echo ::set-output name=db-name::"${{ secrets.DB_NAME_PROD }}"
+            echo ::set-output name=db-user::"${{ secrets.DB_USER_PROD }}"
+            echo ::set-output name=db-password::"${{ secrets.DB_PASSWORD_PROD }}"
           else
             printf '%s\n' "ENVIRONMENT is not in accepted range: test, prod." >&2
             exit 1
@@ -53,6 +59,10 @@ jobs:
         run: |
           heroku apps:create --region eu ${{ steps.env.outputs.app }} || true
           heroku config:set --app=${{ steps.env.outputs.app }} \
+            DB_HOST=${{ steps.env.outputs.db-host }} \
+            DB_NAME=${{ steps.env.outputs.db-name }} \
+            DB_PASSWORD=${{ steps.env.outputs.db-password }} \
+            DB_USER=${{ steps.env.outputs.db-user }} \
             NPM_CONFIG_PRODUCTION=true \
             NODE_ENV=production
           heroku git:remote --app=${{ steps.env.outputs.app }}
