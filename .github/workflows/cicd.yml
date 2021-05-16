@@ -38,10 +38,11 @@ jobs:
           fi
 
           echo ::set-output name=app::"${ORG}-${ENVIRONMENT}-${NAME}"
-      - name: Prettier
+      - name: CI
         run: |
           npm ci --frozen-lockfile
           npm run prettier
+          npm run test
       - name: Heroku Login
         run: |
           sed --in-place --expression \

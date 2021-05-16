@@ -1,6 +1,7 @@
 const path = require("path");
 const express = require("express");
 const hbs = require("hbs");
+const { registerRoutes } = require("./routes");
 
 const app = express();
 
@@ -13,5 +14,8 @@ hbs.registerPartials(partialsDirPath);
 hbs.registerHelper("date", () => new Date());
 
 app.use(express.static(publicDirPath));
+app.use(express.json());
+
+registerRoutes(app);
 
 module.exports = app;
