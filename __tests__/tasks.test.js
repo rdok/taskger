@@ -7,51 +7,63 @@ jest.mock("../db/mongoose");
 const app = require("../app");
 
 describe("CRUD Tasks", () => {
-  it("fetches tasks", async () => {
+  it("fetches tasks", (done) => {
     const tasks = [makeTask()];
     Task.find.mockResolvedValue(tasks);
 
-    const response = request(app).get("/api/tasks");
-
-    await response.expect(200).expect({ data: tasks });
-    expect(Task.find).toHaveBeenCalled();
+    request(app)
+      .get("/api/tasks")
+      .expect(200)
+      .expect({ data: tasks })
+      .expect(() => {
+        expect(Task.find).toHaveBeenCalled();
+      })
+      .end(done);
   });
 
-  it("stores a task", async () => {
-    const task = makeTask();
-    const taskToCreate = { ...task, _id: "task-to-create-id" };
-    const taskModel = new Task();
-    taskModel.save.mockResolvedValue(taskToCreate);
+  it("stores a task", (done) => {
+    const body = makeTask();
+    const expectedTask = { ...body, _id: "task-to-create-id" };
+    new Task().save.mockResolvedValue(expectedTask);
 
-    const response = request(app).post("/api/tasks").send(task);
-
-    await response.expect(201, taskToCreate);
-    expect(taskModel.save).toHaveBeenCalled();
+    request(app)
+      .post("/api/tasks")
+      .send(body)
+      .expect(201, expectedTask)
+      .expect(() => {
+        expect(new Task().save).toHaveBeenCalled();
+      })
+      .end(done);
   });
 
-  it("updates a task", async () => {
+  it("updates a task", (done) => {
     const task = { ...makeTask(), _id: "task-to-update-uuid" };
     const updatedTask = { ...task, name: "updated-value" };
     Task.updateOne.mockResolvedValue(updatedTask);
 
-    const response = request(app)
+    request(app)
       .patch(`/api/tasks/${task._id}`)
-      .send(updatedTask);
-
-    await response.expect(200, updatedTask);
-    expect(Task.updateOne).toHaveBeenCalledWith(
-      { _id: task._id },
-      { ...updatedTask }
-    );
+      .send(updatedTask)
+      .expect(200, updatedTask)
+      .expect(() => {
+        expect(Task.updateOne).toHaveBeenCalledWith(
+          { _id: task._id },
+          { ...updatedTask }
+        );
+      })
+      .end(done);
   });
 
-  it("deletes a task", async () => {
+  it("deletes a task", (done) => {
     const task = { ...makeTask(), _id: "task-to-delete-uuid" };
     Task.deleteOne.mockResolvedValue({ deleteCount: 1 });
 
-    const response = request(app).delete(`/api/tasks/${task._id}`);
-
-    await response.expect(200, { deleteCount: 1 });
-    expect(Task.deleteOne).toHaveBeenCalledWith({ _id: task._id });
+    request(app)
+      .delete(`/api/tasks/${task._id}`)
+      .expect(200, { deleteCount: 1 })
+      .expect(() => {
+        expect(Task.deleteOne).toHaveBeenCalledWith({ _id: task._id });
+      })
+      .end(done);
   });
 });
