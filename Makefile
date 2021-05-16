@@ -24,3 +24,5 @@ node_modules:
 
 logs-test:
 	heroku logs --app=rdok-test-taskger --tail
+logs-prod:
+	heroku logs --app=rdok-prod-taskger --tail
