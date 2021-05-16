@@ -1,3 +1,4 @@
+const { NotFoundError } = require("../errors/NotFoundError");
 const { registerTaskRoutes } = require("./api/registerTaskRoutes");
 const { BadRequestError } = require("../errors/BadRequestError");
 
@@ -11,6 +12,9 @@ const registerApiRoutes = (app) => {
   app.use("/api/*", (err, req, res, next) => {
     if (err instanceof BadRequestError)
       return res.status(422).json({ status: 422, error: err.message });
+
+    if (err instanceof NotFoundError)
+      return res.status(404).json({ status: 404, error: err.message });
 
     console.error(err);
     return res
