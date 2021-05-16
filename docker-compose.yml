@@ -32,4 +32,4 @@ services:
       - DB_PASSWORD=secret
       #      Defaults to db named test, having required auth creds
       #      https://github.com/docker-library/mongo/blob/910d61285e1ad8fe048309b6e4cb959621ef306f/4.4/docker-entrypoint.sh#L348
-      - DB_MAIN=
+      - DB_NAME=
