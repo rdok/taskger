@@ -14,6 +14,7 @@ hbs.registerPartials(partialsDirPath);
 hbs.registerHelper("date", () => new Date());
 
 app.use(express.static(publicDirPath));
+app.use(express.json());
 
 registerRoutes(app);
 
