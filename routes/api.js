@@ -1,9 +1,9 @@
-const { NotFoundError } = require("../errors/NotFoundError");
-const { registerTaskRoutes } = require("./api/registerTaskRoutes");
-const { BadRequestError } = require("../errors/BadRequestError");
+const { BadRequestError, NotFoundError } = require("../errors");
+const { registerTaskRoutes, registerUserRoutes } = require("./api/index");
 
 const registerApiRoutes = (app) => {
   registerTaskRoutes(app);
+  registerUserRoutes(app);
 
   app.get("/api/*", (req, res) =>
     res.status(404).json({ status: 404, error: "Not Found" })
