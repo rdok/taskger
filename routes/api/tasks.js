@@ -1,7 +1,7 @@
-const { NotFoundError } = require("../../errors/NotFoundError");
+const { NotFoundError } = require("../../errors");
 const { Task } = require("../../db/mongoose");
 
-const registerTaskRoutes = (app) => {
+module.exports = (app) => {
   app.get("/api/tasks", async (req, res, next) => {
     const tasks = await Task.find({});
     return res.json({ data: tasks });
@@ -14,6 +14,7 @@ const registerTaskRoutes = (app) => {
       // status: "todo",
       // createdBy: new ObjectId(user._id),
     }).save();
+
     return res.status(201).send(task);
   });
 
@@ -38,5 +39,3 @@ const registerTaskRoutes = (app) => {
     }
   });
 };
-
-module.exports = { registerTaskRoutes };
