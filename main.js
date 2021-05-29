@@ -5,6 +5,9 @@ const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
 const username = encodeURIComponent(DB_USER);
 const password = encodeURIComponent(DB_PASSWORD);
 const normalisedPort = DB_PORT ? `:${DB_PORT}` : "";
+
+// PROD: database need to be manually created. See `DB_NAME` on heroku config var to find it out.
+// PROD Update1: also it takes some minutes in order to start communication with Cloud MongoDB.
 const normalisedSchema =
   process.env.NODE_ENV === "production" ? "mongodb+srv" : "mongodb";
 const query =
