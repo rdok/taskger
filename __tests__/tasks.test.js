@@ -1,6 +1,6 @@
-const { Task } = require("../db/mongoose");
 const request = require("supertest");
 const { makeTask } = require("../jest/taskMaker");
+const { Task } = require("../db/mongoose");
 
 jest.mock("../db/mongoose");
 
@@ -13,8 +13,7 @@ describe("CRUD Tasks", () => {
 
     request(app)
       .get("/api/tasks")
-      .expect(200)
-      .expect({ data: tasks })
+      .expect(200, { data: tasks })
       .expect(() => {
         expect(Task.find).toHaveBeenCalled();
       })
@@ -24,14 +23,15 @@ describe("CRUD Tasks", () => {
   it("stores a task", (done) => {
     const body = makeTask();
     const expectedTask = { ...body, _id: "task-to-create-id" };
-    new Task().save.mockResolvedValue(expectedTask);
+    const save = jest.fn().mockResolvedValue(expectedTask);
+    Task.mockReturnValue({ save });
 
     request(app)
       .post("/api/tasks")
       .send(body)
       .expect(201, expectedTask)
       .expect(() => {
-        expect(new Task().save).toHaveBeenCalled();
+        expect(save).toHaveBeenCalled();
       })
       .end(done);
   });
