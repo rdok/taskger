@@ -16,6 +16,7 @@ hbs.registerHelper("date", () => new Date());
 app.use(express.static(publicDirPath));
 app.use(express.json());
 
+require("./db/connect");
 registerRoutes(app);
 
 module.exports = app;
