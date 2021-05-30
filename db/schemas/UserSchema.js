@@ -4,17 +4,21 @@ const UserSchema = {
   name: {
     type: String,
     required: true,
-    // trim: true,
+    trim: true,
   },
   email: {
     type: String,
     required: true,
-    // trim: true,
-    // lowercase: true,
-    // validate: (value) => {
-    //   if (!validator.isEmail(value))
-    //     throw new Error(`Invalid email: '${value}'`);
-    // },
+    trim: true,
+    lowercase: true,
+    validate: (value) => {
+      const error = `Invalid email: '${value}'`;
+      if (!validator.isEmail(value)) throw new Error(error);
+    },
+  },
+  password: {
+    type: String,
+    required: true,
   },
   // age: {
   //   type: Number,
