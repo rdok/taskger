@@ -20,6 +20,12 @@ const User = mongoose.model("User", {
   password: {
     type: String,
     required: true,
+    trim: true,
+    minLength: 7,
+    validate: (value) => {
+      const error = `Password cannot contain ${value}`;
+      if (value === "password") throw new Error(error);
+    },
   },
   // age: {
   //   type: Number,
