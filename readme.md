@@ -18,8 +18,8 @@ See `Makefile`
 
 [cicd]: https://github.com/rdok/taskger/actions/workflows/cicd.yml
 [cicd_badge]: https://github.com/rdok/taskger/actions/workflows/cicd.yml/badge.svg
-[test_site_badge]: https://img.shields.io/badge/test-grey?style=flat-square&logo=heroku
+[test_site_badge]: https://img.shields.io/badge/test-green?style=flat-square&logo=heroku
 [test_site]: https://rdok-test-taskger.herokuapp.com/
-[prod_site_badge]: https://img.shields.io/badge/prod-grey?style=flat-square&logo=heroku
+[prod_site_badge]: https://img.shields.io/badge/prod-orange?style=flat-square&logo=heroku
 [prod_site]: https://rdok-prod-taskger.herokuapp.com/
 [udemy]: https://www.udemy.com/course/the-complete-nodejs-developer-course-2/
