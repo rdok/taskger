@@ -1,4 +1,6 @@
-const TaskSchema = {
+const mongoose = require("mongoose");
+
+const Task = mongoose.model("Task", {
   name: {
     type: String,
     required: true,
@@ -18,6 +20,6 @@ const TaskSchema = {
   //   required: true,
   //   trim: true,
   // },
-};
+});
 
-module.exports = { TaskSchema };
+module.exports = { Task };

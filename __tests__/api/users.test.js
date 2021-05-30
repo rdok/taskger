@@ -1,9 +1,9 @@
 const request = require("supertest");
 const { makeUser } = require("../../jest/userMaker");
-
 const app = require("../../app");
-const { User } = require("../../db/mongoose");
-jest.mock("../../db/mongoose");
+
+const { User } = require("../../db/models/user");
+jest.mock("../../db/models/user");
 
 it("creates a user", (done) => {
   const body = makeUser();

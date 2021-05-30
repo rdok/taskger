@@ -1,4 +1,4 @@
-const { User } = require("../../db/mongoose");
+const { User } = require("../../db/models/user");
 
 module.exports = (app) => {
   app.post("/api/users", async (req, res, next) => {

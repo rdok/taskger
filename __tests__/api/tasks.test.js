@@ -1,8 +1,8 @@
 const request = require("supertest");
 const { makeTask } = require("../../jest/taskMaker");
-const { Task } = require("../../db/mongoose");
 
-jest.mock("../../db/mongoose");
+const { Task } = require("../../db/models/task");
+jest.mock("../../db/models/task");
 
 const app = require("../../app");
 

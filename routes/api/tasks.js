@@ -1,5 +1,5 @@
 const { NotFoundError } = require("../../errors");
-const { Task } = require("../../db/mongoose");
+const { Task } = require("../../db/models/task");
 
 module.exports = (app) => {
   app.get("/api/tasks", async (req, res, next) => {
