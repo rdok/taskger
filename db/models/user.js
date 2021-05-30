@@ -1,6 +1,7 @@
 const validator = require("validator");
+const mongoose = require("mongoose");
 
-const UserSchema = {
+const User = mongoose.model("User", {
   name: {
     type: String,
     required: true,
@@ -23,6 +24,6 @@ const UserSchema = {
   // age: {
   //   type: Number,
   // },
-};
+});
 
-module.exports = { UserSchema };
+module.exports = { User };
