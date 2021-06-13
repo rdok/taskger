@@ -49,8 +49,7 @@ module.exports = (app) => {
       const id = req.params._id;
       const response = await Task.deleteOne({ _id: id });
 
-      const error = `Unable to find task resource with _id: ${id}`;
-      if (response.deletedCount === 0) throw new NotFoundError(error);
+      if (response.deletedCount === 0) throw new NotFoundError();
 
       return res.status(200).send(response);
     } catch (e) {
