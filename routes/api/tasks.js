@@ -8,14 +8,13 @@ module.exports = (app) => {
   });
 
   app.post("/api/tasks", async (req, res, next) => {
-    const task = await new Task({
-      ...req.body,
-      // name: "AlphaTask",
-      // status: "todo",
-      // createdBy: new ObjectId(user._id),
-    }).save();
+    try {
+      const task = await new Task({ ...req.body }).save();
 
-    return res.status(201).send(task);
+      return res.status(201).send(task);
+    } catch (e) {
+      return next(e);
+    }
   });
 
   app.patch("/api/tasks/:_id", async (req, res, next) => {
