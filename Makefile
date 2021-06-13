@@ -2,6 +2,9 @@ up:
 	docker-compose up -d
 	docker-compose up api
 
+down:
+	docker-compose down
+
 db-refresh:
 	docker-compose up --force-recreate --always-recreate-deps --build --renew-anon-volumes
 
