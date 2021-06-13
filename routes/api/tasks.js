@@ -3,8 +3,12 @@ const { Task } = require("../../db/models/task");
 
 module.exports = (app) => {
   app.get("/api/tasks", async (req, res, next) => {
-    const tasks = await Task.find({});
-    return res.json({ data: tasks });
+    try {
+      const tasks = await Task.find({});
+      return res.json({ data: tasks });
+    } catch (e) {
+      return next(e);
+    }
   });
 
   app.post("/api/tasks", async (req, res, next) => {
@@ -18,10 +22,14 @@ module.exports = (app) => {
   });
 
   app.patch("/api/tasks/:_id", async (req, res, next) => {
-    const id = req.params._id;
-    const task = await Task.updateOne({ _id: id }, { ...req.body });
+    try {
+      const id = req.params._id;
+      const task = await Task.updateOne({ _id: id }, { ...req.body });
 
-    return res.status(200).send(task);
+      return res.status(200).send(task);
+    } catch (e) {
+      return next(e);
+    }
   });
 
   app.get("/api/tasks/:id", async (req, res, next) => {
@@ -37,8 +45,8 @@ module.exports = (app) => {
   });
 
   app.delete("/api/tasks/:_id", async (req, res, next) => {
-    const id = req.params._id;
     try {
+      const id = req.params._id;
       const response = await Task.deleteOne({ _id: id });
 
       const error = `Unable to find task resource with _id: ${id}`;
