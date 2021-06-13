@@ -79,3 +79,13 @@ it("deletes a task", (done) => {
     })
     .end(done);
 });
+
+it("should handle non existent task fetch", (done) => {
+  Task.findById.mockResolvedValueOnce(null);
+  const error = "The specified resource does not exist.";
+
+  request(app)
+    .get(`/api/tasks/invalid-id`)
+    .expect(404, { status: 404, error })
+    .end(done);
+});
