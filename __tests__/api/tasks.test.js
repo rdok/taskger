@@ -19,6 +19,19 @@ it("fetches tasks", (done) => {
     .end(done);
 });
 
+it("fetches a task", (done) => {
+  const task = { ...makeTask(), _id: "task-to-fetch-uuid" };
+  Task.findById.mockResolvedValueOnce(task);
+
+  request(app)
+    .get(`/api/tasks/${task._id}`)
+    .expect(() => {
+      expect(Task.findById).toHaveBeenCalledWith(task._id);
+    })
+    .expect(200, { data: task })
+    .end(done);
+});
+
 it("stores a task", (done) => {
   const body = makeTask();
   const expectedTask = { ...body, _id: "task-to-create-id" };
