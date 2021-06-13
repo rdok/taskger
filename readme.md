@@ -2,7 +2,7 @@
 
 > This is an implementation of [The Complete Node.js Developer Course][udemy_course_link].   
 > 
-> **However**, I'm using it as a kata. To practise & hone the skills used for day to day work. Starting from tests, code, CI/CD, up to including releasing test & prod environments.
+> **However**, I'm using it as a kata 🥋 . To practise & hone the skills used for day to day work. Starting from tests, code, CI/CD, up to including releasing test & prod environments.
 
 [![CI/CD][cicd_badge]][cicd]
 [![test-site][test_site_badge]][test_site]
