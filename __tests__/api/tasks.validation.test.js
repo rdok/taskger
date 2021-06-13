@@ -13,3 +13,15 @@ it("validates required fields", (done) => {
     .expect(422, { status: 422, error })
     .end(done);
 });
+
+it("validates status value", (done) => {
+  let error = "Task validation failed: ";
+  error +=
+    "status: `InvalidValue` is not a valid enum value for path `status`.";
+
+  request(app)
+    .post("/api/tasks")
+    .send({ name: "TaskName", status: "InvalidValue" })
+    .expect(422, { status: 422, error })
+    .end(done);
+});
