@@ -19,6 +19,19 @@ it("fetches tasks", (done) => {
     .end(done);
 });
 
+it("fetches a task", (done) => {
+  const task = { ...makeTask(), _id: "task-to-fetch-uuid" };
+  Task.findById.mockResolvedValueOnce(task);
+
+  request(app)
+    .get(`/api/tasks/${task._id}`)
+    .expect(() => {
+      expect(Task.findById).toHaveBeenCalledWith(task._id);
+    })
+    .expect(200, { data: task })
+    .end(done);
+});
+
 it("stores a task", (done) => {
   const body = makeTask();
   const expectedTask = { ...body, _id: "task-to-create-id" };
@@ -64,5 +77,15 @@ it("deletes a task", (done) => {
     .expect(() => {
       expect(Task.deleteOne).toHaveBeenCalledWith({ _id: task._id });
     })
+    .end(done);
+});
+
+it("should handle non existent task fetch", (done) => {
+  Task.findById.mockResolvedValueOnce(null);
+  const error = "The specified resource does not exist.";
+
+  request(app)
+    .get(`/api/tasks/invalid-id`)
+    .expect(404, { status: 404, error })
     .end(done);
 });

@@ -6,11 +6,11 @@ const Task = mongoose.model("Task", {
     required: true,
     trim: true,
   },
-  // status: {
-  //   type: String,
-  //   required: true,
-  //   enum: ["completed", "todo", "doing"],
-  // },
+  status: {
+    type: String,
+    required: true,
+    enum: ["completed", "todo", "doing"],
+  },
   // description: {
   //   type: String,
   //   trim: true,

@@ -8,14 +8,13 @@ module.exports = (app) => {
   });
 
   app.post("/api/tasks", async (req, res, next) => {
-    const task = await new Task({
-      ...req.body,
-      // name: "AlphaTask",
-      // status: "todo",
-      // createdBy: new ObjectId(user._id),
-    }).save();
+    try {
+      const task = await new Task({ ...req.body }).save();
 
-    return res.status(201).send(task);
+      return res.status(201).send(task);
+    } catch (e) {
+      return next(e);
+    }
   });
 
   app.patch("/api/tasks/:_id", async (req, res, next) => {
@@ -23,6 +22,18 @@ module.exports = (app) => {
     const task = await Task.updateOne({ _id: id }, { ...req.body });
 
     return res.status(200).send(task);
+  });
+
+  app.get("/api/tasks/:id", async (req, res, next) => {
+    try {
+      const id = req.params.id;
+      const task = await Task.findById(id);
+
+      if (!task) throw new NotFoundError();
+      return res.json({ data: task });
+    } catch (e) {
+      return next(e);
+    }
   });
 
   app.delete("/api/tasks/:_id", async (req, res, next) => {
