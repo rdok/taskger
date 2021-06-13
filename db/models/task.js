@@ -9,7 +9,7 @@ const Task = mongoose.model("Task", {
   status: {
     type: String,
     required: true,
-    // enum: ["completed", "todo", "doing"],
+    enum: ["completed", "todo", "doing"],
   },
   // description: {
   //   type: String,
