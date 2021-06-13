@@ -1,7 +1,11 @@
 const path = require("path");
 const express = require("express");
 const hbs = require("hbs");
-const { registerRoutes } = require("./routes");
+const apiUserRouter = require("./routers/api/user");
+const apiTaskRouter = require("./routers/api/tasks");
+const apiNotFoundRouter = require("./routers/api/not-found");
+const webRouter = require("./routers/web");
+const apiErrorsMiddleware = require("./middlewares/api-errors");
 
 const app = express();
 
@@ -17,6 +21,12 @@ app.use(express.static(publicDirPath));
 app.use(express.json());
 
 require("./db/connect");
-registerRoutes(app);
+
+app.use(apiUserRouter);
+app.use(apiTaskRouter);
+app.use(apiNotFoundRouter);
+app.use(webRouter);
+
+app.use("/api/*", apiErrorsMiddleware);
 
 module.exports = app;
