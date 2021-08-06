@@ -24,8 +24,9 @@ services:
       - ".:/home/node/app"
     command: npm run start:dev
     ports:
-      - 3000:3000
+      - "3006:3006"
     environment:
+      - PORT=3006
       - DB_HOST=mongo
       - DB_PORT=27017
       - DB_USER=root
