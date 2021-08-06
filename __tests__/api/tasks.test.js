@@ -89,3 +89,13 @@ it("should handle non existent task fetch", (done) => {
     .expect(404, { status: 404, error })
     .end(done);
 });
+
+it("should handle non existent task delete", (done) => {
+  Task.deleteOne.mockResolvedValueOnce({ deletedCount: 0 });
+  const error = "The specified resource does not exist.";
+
+  request(app)
+    .delete(`/api/tasks/invalid-id`)
+    .expect(404, { status: 404, error })
+    .end(done);
+});
